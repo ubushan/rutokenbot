@@ -45,11 +45,10 @@ class head():
         url = SITE + "/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "&queryString=" + self
         html_doc = urlopen(url).read()
         soup = BeautifulSoup(html_doc, 'html.parser')
-        noresult = soup.find_all('div', 'search-results-container')
-        notrez = re.findall(r'No results', str(noresult))
-        if notrez[0] == 'No results':
-            return 'По вашему запросу ничего не найдено'
-        else:
+        check = soup.find_all('div', 'search-results-container')
+        notresult = re.findall(r'No results found for', str(check))
+        yesresult = re.findall(r'data-totalsize', str(check))
+        if yesresult[0] == 'data-totalsize':
             lst = []
             for link in soup.find_all('a', 'search-result-link visitable'):
                 content = SITE + link.get('href')
@@ -63,3 +62,7 @@ class head():
             return ('Результаты поиска:' + '\n' + d + '\n- - -'
                                                    '\nЕсли не нашел решение проблемы, напиши нам!'
                                                    '\nhotline@rutoken.ru - Техническая поддержка')
+        elif notresult[0] == 'No results found for':
+            return 'По вашему запросу ничего не найдено'
+        else:
+            return 'Что-то пошло не так :('

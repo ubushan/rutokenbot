@@ -11,6 +11,7 @@ html_doc = urlopen(url).read()
 soup = BeautifulSoup(html_doc, 'html.parser')
 nores = soup.find_all('div', 'search-results-container')
 
+print(nores)
 
-a = re.findall(r'No results', str(nores))
+a = re.findall(r'data-totalsize', str(nores))
 print(a[0])
