@@ -41,7 +41,7 @@ def help(self):
 
 @bot.message_handler(func=lambda msg: True)
 def echo(self):
-    # markup = types.ReplyKeyboardMarkup()
+    # markup = types.ReplyKeyboardMarkup() # после обновления библиотеки telebot, кнопки перестали работать :(, пока не могу понять в чем проблема
     # markup.row('10', '37', '52', '1053')
     # markup.row('1060', '1111', '7777', '333')
     # markup.row('Назад')

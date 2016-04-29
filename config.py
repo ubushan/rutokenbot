@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 import csv
 
+
 TOKEN = '186044924:AAHUcAUHTg-gjgZMylRgmD4tUYl2t94AzcQ'
-PATH_DATA = 'C:\\Users\\Ubushaev\\PycharmProjects\\aktiv\\data\\'
+PATH_DATA = 'C:\\Users\\Ubushaev\\PycharmProjects\\aktiv\\data\\' # Это путь локального каталога расположенного на моем рабочем компе.
+
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+
 
 SITE = 'http://kb.rutoken.ru'
 
@@ -18,7 +21,8 @@ class head():
         except ValueError:
             return False
 
-    def error(self):
+
+    def error(self): # старый парсер по файлу errorcode.csv, его можно использовать в дополнительных целях, если нужно
         if self:
             with open(PATH_DATA + "errorcode.csv", 'r') as csvfile:
                 fileDialect = csv.Sniffer().sniff(csvfile.read(1024))
@@ -31,7 +35,8 @@ class head():
         else:
             return 'Такого кода ошибки в моей Базе Знаний нет :('
 
-    # def search_kb(self):
+
+    # def search_kb(self): # старый кривой парсер
     #     url = "http://developer.rutoken.ru/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "&queryString=" + self
     #     html_doc = urlopen(url).read()
     #     soup = BeautifulSoup(html_doc, 'html.parser')
@@ -39,7 +44,8 @@ class head():
     #     #link = (soup.find('a', 'search-result-link'))
     #     return (text.get_text() + '\n')
 
-    def search_kb(self):
+
+    def search_kb(self): # актуальный на данный момент парсер 29/04/16
         url = SITE + "/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "&queryString=" + self
         html_doc = urlopen(url).read()
         soup = BeautifulSoup(html_doc, 'html.parser')
