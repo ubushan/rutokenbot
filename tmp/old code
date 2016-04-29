@@ -1,0 +1,8 @@
+# def code_error(self):
+#     if os.path.isfile(PATH + self):
+#         f = open(PATH + self, 'rb')
+#         text = f.read()
+#         f.close()
+#         return text
+#     else:
+#         return "Такого кода ошибки в моей Базе Знаний нет :("
