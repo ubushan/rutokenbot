@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import re
 
 SITE = 'http://kb.rutoken.ru'
 
-def search_kb(self):
-    url = SITE + "/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "&queryString=" + self
-    html_doc = urlopen(url).read()
-    soup = BeautifulSoup(html_doc, 'html.parser')
-    # text = (soup.find_all('div', 'highlights'))
-    for link in soup.find_all('a', 'search-result-link visitable'):
-        a = print(link.get('href'))
-    return a
+self = input()
+url = SITE + "/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "&queryString=" + self
+html_doc = urlopen(url).read()
+soup = BeautifulSoup(html_doc, 'html.parser')
+nores = soup.find_all('div', 'search-results-container')
 
-search_kb('10')
+
+a = re.findall(r'No results', str(nores))
+print(a[0])

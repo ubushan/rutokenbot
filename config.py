@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 import csv
-
+import re
 
 TOKEN = '186044924:AAHUcAUHTg-gjgZMylRgmD4tUYl2t94AzcQ'
-PATH_DATA = 'C:\\Users\\Ubushaev\\PycharmProjects\\aktiv\\data\\' # На данный момент 29/04/16 этот путь уже не актуален, т.к. бот парсит сайт
-
+PATH_DATA = 'C:\\Users\\Ubushaev\\PycharmProjects\\aktiv\\data\\'  # На данный момент 29/04/16 этот путь уже не актуален, т.к. бот парсит сайт
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-
 
 SITE = 'http://kb.rutoken.ru'
 
@@ -21,8 +19,7 @@ class head():
         except ValueError:
             return False
 
-
-    def error(self): # старый парсер по файлу errorcode.csv, его можно использовать в дополнительных целях, если нужно
+    def error(self):  # старый парсер по файлу errorcode.csv, его можно использовать в дополнительных целях, если нужно
         if self:
             with open(PATH_DATA + "errorcode.csv", 'r') as csvfile:
                 fileDialect = csv.Sniffer().sniff(csvfile.read(1024))
@@ -35,7 +32,6 @@ class head():
         else:
             return 'Такого кода ошибки в моей Базе Знаний нет :('
 
-
     # def search_kb(self): # старый кривой парсер
     #     url = "http://developer.rutoken.ru/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "&queryString=" + self
     #     html_doc = urlopen(url).read()
@@ -45,11 +41,25 @@ class head():
     #     return (text.get_text() + '\n')
 
 
-    def search_kb(self): # актуальный на данный момент парсер 29/04/16
+    def search_kb(self):
         url = SITE + "/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "&queryString=" + self
         html_doc = urlopen(url).read()
         soup = BeautifulSoup(html_doc, 'html.parser')
-        # text = (soup.find_all('div', 'highlights'))
-        for link in soup.find_all('a', 'search-result-link visitable'):
-            content = SITE + link.get('href')
-            return [content]
+        noresult = soup.find_all('div', 'search-results-container')
+        notrez = re.findall(r'No results', str(noresult))
+        if notrez[0] == 'No results':
+            return 'По вашему запросу ничего не найдено'
+        else:
+            lst = []
+            for link in soup.find_all('a', 'search-result-link visitable'):
+                content = SITE + link.get('href')
+            for descript in soup.find_all('div', 'highlights'):
+                text = descript.get_text('')
+                lst.append('- ' + text[:120] + '... ' + '\nУзнать подробнее: ' + content + ' \n')
+                a = str(lst)
+                b = re.sub(r"\['|\']|', '", '', a)
+                c = re.sub(r"\\n", '\n', b)
+                d = re.sub(r"- ", '\n- ', c)
+            return ('Результаты поиска:' + '\n' + d + '\n- - -'
+                                                   '\nЕсли не нашел решение проблемы, напиши нам!'
+                                                   '\nhotline@rutoken.ru - Техническая поддержка')
