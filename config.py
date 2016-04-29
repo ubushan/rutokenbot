@@ -3,7 +3,7 @@ import csv
 
 
 TOKEN = '186044924:AAHUcAUHTg-gjgZMylRgmD4tUYl2t94AzcQ'
-PATH_DATA = 'C:\\Users\\Ubushaev\\PycharmProjects\\aktiv\\data\\' # Это путь локального каталога расположенного на моем рабочем компе.
+PATH_DATA = 'C:\\Users\\Ubushaev\\PycharmProjects\\aktiv\\data\\' # На данный момент 29/04/16 этот путь уже не актуален, т.к. бот парсит сайт
 
 
 from urllib.request import urlopen
