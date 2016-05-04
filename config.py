@@ -46,6 +46,10 @@ class head():
         html_doc = urlopen(url).read()
         soup = BeautifulSoup(html_doc, 'html.parser')
         check = soup.find_all('div', 'search-results-container')
+        count = soup.find_all('p', 'search-results-count')
+        count2 = re.findall(r'\Showing \d* ', str(count))
+        count3 = re.findall(r' \d* ', str(count2))
+        print(count3[0])
         result = re.findall(r'data-totalsize', str(check))
         if bool(result) == True:
             lst = []
