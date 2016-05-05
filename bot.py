@@ -22,7 +22,7 @@ def driver_error(self):
 
 
 def code_error(self):
-    #print(type(self)) # Вывод в консоль для проверки типа входных данных
+    print(type(self)) # Вывод в консоль для проверки типа входных данных
     return config.head.search_kb(self)
 
 

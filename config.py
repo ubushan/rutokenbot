@@ -4,7 +4,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 
-TOKEN = '186044924:AAHUcAUHTg-gjgZMylRgmD4tUYl2t94AzcQ'
+TOKEN = '212687020:AAHGXtcv1xQw5qhsIrfMC_nYHdXDgh6HpGk'
 SITE = 'http://kb.rutoken.ru'
 
 
@@ -26,7 +26,8 @@ class head():
         count2 = re.findall(r'\Showing \d* ', str(count))
         count3 = re.findall(r' \d* ', str(count2))
         #print(count3[0])
-        result = re.findall(r'data(old)-totalsize', str(check))
+        result = re.findall(r'data-totalsize', str(check))
+        print(result)
         if bool(result) == True:
             lst = []
             for link in soup.find_all('a', 'search-result-link visitable'):
