@@ -18,6 +18,8 @@ class head():
 
 
     def search_kb(self):
+        print(self)
+        self = self.encode('utf-8').decode('ascii', 'ignore')
         url = SITE + "/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "+and+type+%3D+" + "page" + "&queryString=" + self
         html_doc = urlopen(url).read()
         soup = BeautifulSoup(html_doc, 'html.parser')
@@ -25,9 +27,7 @@ class head():
         count = soup.find_all('p', 'search-results-count')
         count2 = re.findall(r'\Showing \d* ', str(count))
         count3 = re.findall(r' \d* ', str(count2))
-        #print(count3[0])
         result = re.findall(r'data-totalsize', str(check))
-        print(result)
         if bool(result) == True:
             lst = []
             for link in soup.find_all('a', 'search-result-link visitable'):
