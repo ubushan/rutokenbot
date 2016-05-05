@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 import re
+import config
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-
-
-SITE = 'http://kb.rutoken.ru'
 
 
 def parser(self):
     #print(self)
     #self = self.encode('utf-8').decode('ascii', 'ignore')
-    url = SITE + "/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "+and+type+%3D+" + "page" + "&queryString=" + self
+    url = config.KB + "/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "+and+type+%3D+" + "page" + "&queryString=" + self
     html_doc = urlopen(url).read()
     soup = BeautifulSoup(html_doc, 'html.parser')
     check = soup.find_all('div', 'search-results-container')
@@ -21,7 +19,7 @@ def parser(self):
     if bool(result) == True:
         lst = []
         for link in soup.find_all('a', 'search-result-link visitable'):
-            content = SITE + link.get('href')
+            content = config.KB + link.get('href')
         for descript in soup.find_all('div', 'highlights'):
             text = descript.get_text('')
             lst.append("""\n• """ + text[:98] + """...\n[Подробнее](""" + content + """)\n""")
