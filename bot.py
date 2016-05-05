@@ -5,15 +5,15 @@ import config
 
 bot = telebot.TeleBot(config.TOKEN)
 
-def log(msg, answer):
-    print('\n')
-    from datetime import datetime
-    print(datetime.now())
-    print("Message from [0] [1]. (id = [2]) \n Text - [3]".format(msg.from_user.first_name,
-                                                                  msg.from_user.last_name,
-                                                                  str(msg.from_user.id),
-                                                                  msg.msg))
-    print(answer)
+# def log(msg, answer):
+#     print('\n')
+#     from datetime import datetime
+#     print(datetime.now())
+#     print("Message from [0] [1]. (id = [2]) \n Text - [3]".format(msg.from_user.first_name,
+#                                                                   msg.from_user.last_name,
+#                                                                   str(msg.from_user.id),
+#                                                                   msg.msg))
+#     print(answer)
 
 
 def driver_error(self):
@@ -22,7 +22,7 @@ def driver_error(self):
 
 
 def code_error(self):
-    print(type(self))
+    #print(type(self)) # Вывод в консоль для проверки типа входных данных
     return config.head.search_kb(self)
 
 
@@ -35,7 +35,7 @@ def start(self):
 
 @bot.message_handler(commands=['stop'])
 def start(self):
-    text = 'Уже уходишь 😢?\nЕсли понадоблюсь тебе ещё раз, если что заходи...'
+    text = 'Уже уходишь 😢?\nЕсли понадоблюсь тебе ещё раз, пиши, помогу тебе в любой момент в любое время дня и ночи.'
     bot.send_message(self.chat.id, text)
 
 
@@ -85,7 +85,7 @@ def echo(self):
         return driver_error(self)
     else:
         text = 'Выберите "Код ошибки" из списка или введите в формате "XX"!'
-        print(str(self.text))
+        #print(str(self.text))
         bot.send_message(self.chat.id, text)
     return 'Что-то пошло не так :('
 

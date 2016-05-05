@@ -6,3 +6,25 @@
 #         return text
 #     else:
 #         return "Такого кода ошибки в моей Базе Знаний нет :("
+
+
+# def error(self):  # старый парсер по файлу errorcode.csv, его можно использовать в дополнительных целях, если нужно
+#     if self:
+#         with open(PATH_DATA + "errorcode.csv", 'r') as csvfile:
+#             fileDialect = csv.Sniffer().sniff(csvfile.read(1024))
+#             csvfile.seek(0)
+#             empty = {}
+#             dictReader = csv.DictReader(csvfile, dialect=fileDialect)
+#             for row in dictReader:
+#                 empty[row['Code'].replace('Код ошибки: ', '')] = row['Error']
+#             return empty[self]
+#     else:
+#         return 'Такого кода ошибки в моей Базе Знаний нет :('
+
+# def search_kb(self): # старый кривой парсер
+#     url = "http://developer.rutoken.ru/dosearchsite.action?cql=siteSearch+~+" + '"' + self + '"' + "+and+space+%3D+" + "KB" + "&queryString=" + self
+#     html_doc = urlopen(url).read()
+#     soup = BeautifulSoup(html_doc, 'html.parser')
+#     text = (soup.find('ol', 'search-results cql'))
+#     #link = (soup.find('a', 'search-result-link'))
+#     return (text.get_text() + '\n')

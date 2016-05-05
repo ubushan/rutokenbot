@@ -28,5 +28,5 @@ for line1 in desc:
 
 #print(content)
 
-#a = re.findall(r'data-totalsize', str(nores))
+#a = re.findall(r'data(old)-totalsize', str(nores))
 #print(a[0])
