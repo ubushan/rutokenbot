@@ -28,3 +28,11 @@
 #     text = (soup.find('ol', 'search-results cql'))
 #     #link = (soup.find('a', 'search-result-link'))
 #     return (text.get_text() + '\n')
+
+
+#     def float_check(self):
+#         try:
+#             float(self)
+#             return True
+#         except ValueError:
+#             return False

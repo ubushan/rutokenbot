@@ -2,28 +2,15 @@
 import telebot
 from telebot import types
 import config
+import main
+
 
 bot = telebot.TeleBot(config.TOKEN)
-
-# def log(msg, answer):
-#     print('\n')
-#     from datetime import datetime
-#     print(datetime.now())
-#     print("Message from [0] [1]. (id = [2]) \n Text - [3]".format(msg.from_user.first_name,
-#                                                                   msg.from_user.last_name,
-#                                                                   str(msg.from_user.id),
-#                                                                   msg.msg))
-#     print(answer)
 
 
 def driver_error(self):
     text = 'Здесь скоро будут решения проблем с установкой драйверов Рутокен'
     bot.send_message(self.chat.id, text)  # reply_markup = markup)
-
-
-# def code_error(self):
-#     print(type(self)) # Вывод в консоль для проверки типа входных данных
-#     return config.head.search_kb(self)
 
 
 @bot.message_handler(commands=['start'])
@@ -75,7 +62,7 @@ def echo(self):
     #bot.send_message(self.chat.id, self.text)  # reply_markup = markup)
     # if config.head.float_check(self.text):
     #     if self.text == self.text:
-    bot.send_message(self.chat.id, config.head.search_kb(self.text), parse_mode="Markdown")
+    bot.send_message(self.chat.id, main.parser(self.text), parse_mode="Markdown")
     #         #print(type(self.text)) # Вывод в консоль для проверки
     #     # else:
     #     #     bot.send_message(self.chat.id, 'Что-то пошло не так')
